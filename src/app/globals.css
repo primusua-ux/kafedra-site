@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0a1220;
+  --color-bg-panel: #111c2e;
+  --color-bg-elevated: #172338;
+  --color-border: #26344d;
+  --color-border-strong: #3a4a68;
+  --color-text: #e7ecf3;
+  --color-text-muted: #9aa7bd;
+  --color-text-dim: #6b7a94;
+  --color-accent: #c9a24a;
+  --color-accent-hover: #d6b468;
+  --color-accent-dim: #8a6f32;
+  --color-tactical: #4a5d3a;
+  --color-danger: #c2410c;
+
+  --font-sans: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html, body {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-image:
+    radial-gradient(1200px 600px at 85% -10%, rgba(201, 162, 74, 0.08), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, rgba(74, 93, 58, 0.12), transparent 60%),
+    linear-gradient(180deg, #0a1220 0%, #0a1220 100%);
+  min-height: 100vh;
+}
+
+/* tactical grid background pattern */
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(201, 162, 74, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201, 162, 74, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* diagonal stripes */
+.stripes {
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(201, 162, 74, 0.08) 0px,
+    rgba(201, 162, 74, 0.08) 2px,
+    transparent 2px,
+    transparent 12px
+  );
+}
+
+.corner-cut {
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+}
+
+.section-title {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+}
+
+/* scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #0a1220; }
+::-webkit-scrollbar-thumb { background: #26344d; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #3a4a68; }
