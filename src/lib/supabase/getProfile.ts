@@ -1,4 +1,5 @@
 import { createClient } from "./server";
+import { createServiceClient } from "./service";
 
 export type UserRole = "student" | "teacher" | "admin";
 export type UserStatus = "pending" | "approved" | "rejected";
@@ -15,8 +16,10 @@ export type Profile = {
 /**
  * Повертає користувача та його профіль (ролі + статус модерації).
  * Якщо користувач не авторизований — повертає null.
+ * Профіль читається через service role (обходить RLS) — безпечно, бо тільки на сервері.
  */
 export async function getProfile() {
+  // Перевіряємо сесію через anon-клієнт (валідація JWT)
   const supabase = await createClient();
   const {
     data: { user },
@@ -24,7 +27,9 @@ export async function getProfile() {
 
   if (!user) return null;
 
-  const { data: profile } = await supabase
+  // Читаємо профіль через service role — обходить RLS, завжди повертає актуальні дані
+  const service = createServiceClient();
+  const { data: profile } = await service
     .from("profiles")
     .select("*")
     .eq("id", user.id)
