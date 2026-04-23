@@ -53,11 +53,14 @@ export default function Footer() {
               </li>
               <li className="flex gap-2">
                 <Phone className="h-4 w-4 text-[--color-accent] shrink-0 mt-0.5" />
-                <span>+380 (—) — — —</span>
+                <span>
+                  +38 (067) 280 79 40
+                  <span className="block text-xs text-[--color-text-dim]">також WhatsApp</span>
+                </span>
               </li>
               <li className="flex gap-2">
                 <Mail className="h-4 w-4 text-[--color-accent] shrink-0 mt-0.5" />
-                <span>kafedra@zvi.edu.ua</span>
+                <span>---</span>
               </li>
             </ul>
           </div>
