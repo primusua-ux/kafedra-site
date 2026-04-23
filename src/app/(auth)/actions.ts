@@ -41,11 +41,16 @@ export async function register(
   const fullName = String(formData.get("full_name") ?? "").trim();
   const requestedRole = String(formData.get("role") ?? "student");
 
+  const confirmPassword = String(formData.get("confirm_password") ?? "");
+
   if (!email || !password || !fullName) {
     return { ok: false, error: "Заповніть усі поля." };
   }
   if (password.length < 8) {
     return { ok: false, error: "Пароль має містити щонайменше 8 символів." };
+  }
+  if (password !== confirmPassword) {
+    return { ok: false, error: "Паролі не збігаються." };
   }
   if (!["student", "teacher"].includes(requestedRole)) {
     return { ok: false, error: "Невірна роль." };
