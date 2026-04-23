@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X, LogIn, LogOut, UserCog } from "lucide-react";
+import { Menu, X, LogIn, LogOut, UserCog, Settings } from "lucide-react";
 import Image from "next/image";
 import { signOut } from "@/app/(auth)/actions";
 
@@ -91,9 +91,14 @@ export default function Header({ user }: { user: HeaderUser }) {
                     Адмін
                   </Link>
                 )}
-                <div className="text-xs text-[--color-text-muted] hidden xl:block max-w-[180px] truncate">
-                  {user.fullName || user.email}
-                </div>
+                <Link
+                  href="/settings"
+                  className="hidden xl:flex items-center gap-1.5 text-xs text-[--color-text-muted] max-w-[180px] truncate hover:text-[--color-accent]"
+                  title="Налаштування профілю"
+                >
+                  <Settings className="h-3.5 w-3.5 shrink-0" />
+                  <span className="truncate">{user.fullName || user.email}</span>
+                </Link>
                 <form action={signOut}>
                   <button
                     type="submit"
@@ -157,9 +162,14 @@ export default function Header({ user }: { user: HeaderUser }) {
 
             {user ? (
               <div className="pt-3 space-y-2">
-                <div className="text-xs text-[--color-text-muted] px-3 truncate">
-                  {user.fullName || user.email}
-                </div>
+                <Link
+                  href="/settings"
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-2 px-3 py-2 text-xs text-[--color-text-muted] hover:text-[--color-accent] truncate"
+                >
+                  <Settings className="h-3.5 w-3.5 shrink-0" />
+                  <span className="truncate">{user.fullName || user.email}</span>
+                </Link>
                 {isAdmin && (
                   <Link
                     href="/admin"

@@ -1,8 +1,9 @@
 import { createServiceClient } from "@/lib/supabase/service";
 import PageHero from "@/components/PageHero";
-import { UserCog, Check, X } from "lucide-react";
+import { UserCog, Check, X, Pencil } from "lucide-react";
 import { approveUser, rejectUser, changeRole } from "./actions";
 import DeleteButton from "./DeleteButton";
+import Link from "next/link";
 import FilterBar from "./FilterBar";
 import { Suspense } from "react";
 import type { Profile } from "@/lib/supabase/getProfile";
@@ -174,6 +175,13 @@ function UsersTable({
 
               {/* Дії */}
               <div className="flex flex-wrap gap-2 shrink-0">
+                <Link
+                  href={`/admin/edit/${u.id}`}
+                  className="inline-flex items-center gap-1 px-3 py-1.5 border border-[--color-border-strong] text-xs uppercase tracking-wider hover:border-[--color-accent] hover:text-[--color-accent]"
+                  title="Редагувати"
+                >
+                  <Pencil className="h-3 w-3" /> Редагувати
+                </Link>
                 <form action={changeRole}>
                   <input type="hidden" name="id" value={u.id} />
                   <select
