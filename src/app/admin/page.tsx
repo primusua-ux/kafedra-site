@@ -49,6 +49,11 @@ function UsersTable({ title, users, highlight }: { title: string; users: Profile
               <div className="flex-1 min-w-0">
                 <div className="font-semibold truncate">{u.full_name || "—"}</div>
                 <div className="text-xs text-[--color-text-muted] truncate">{u.email}</div>
+                {u.role === "student" && u.platoon && (
+                  <div className="text-xs text-[--color-text-dim] mt-0.5">
+                    Взвод: <span className="text-[--color-accent]">{u.platoon}</span>
+                  </div>
+                )}
               </div>
               <div className="flex items-center gap-2 text-xs">
                 <span className="uppercase tracking-widest border border-[--color-border-strong] px-2 py-1">

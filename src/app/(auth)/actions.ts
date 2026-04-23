@@ -40,6 +40,7 @@ export async function register(
   const password = String(formData.get("password") ?? "");
   const fullName = String(formData.get("full_name") ?? "").trim();
   const requestedRole = String(formData.get("role") ?? "student");
+  const platoon = String(formData.get("platoon") ?? "").trim();
 
   const confirmPassword = String(formData.get("confirm_password") ?? "");
 
@@ -64,6 +65,7 @@ export async function register(
       data: {
         full_name: fullName,
         requested_role: requestedRole,
+        platoon: platoon || null,
       },
     },
   });

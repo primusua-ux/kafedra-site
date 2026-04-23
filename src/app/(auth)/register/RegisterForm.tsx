@@ -14,6 +14,7 @@ export default function RegisterForm() {
   const [showConfirm, setShowConfirm] = useState(false);
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
+  const [role, setRole] = useState("student");
 
   const mismatch = confirm.length > 0 && password !== confirm;
   const canSubmit = !pending && !mismatch;
@@ -74,7 +75,8 @@ export default function RegisterForm() {
         </div>
         <select
           name="role"
-          defaultValue="student"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
           className="w-full bg-[--color-bg] border border-[--color-border-strong] px-3 py-2.5 text-[--color-text] outline-none focus:border-[--color-accent]"
         >
           <option value="student">Студент</option>
@@ -84,6 +86,25 @@ export default function RegisterForm() {
           Роль підтверджується адміністратором після перевірки.
         </p>
       </label>
+
+      {/* Взвод — тільки для студентів */}
+      {role === "student" && (
+        <label className="block">
+          <div className="text-[11px] uppercase tracking-widest text-[--color-text-muted] mb-1.5">
+            Навчальний взвод
+          </div>
+          <input
+            name="platoon"
+            type="text"
+            placeholder="Наприклад: 201, В-3, 1/2…"
+            maxLength={20}
+            className="w-full bg-[--color-bg] border border-[--color-border-strong] px-3 py-2.5 text-[--color-text] outline-none focus:border-[--color-accent] placeholder:text-[--color-text-dim]"
+          />
+          <p className="text-xs text-[--color-text-dim] mt-1.5">
+            Необов'язково. Можна вказати пізніше.
+          </p>
+        </label>
+      )}
 
       {state && !state.ok && (
         <div className="border border-[--color-danger] bg-[--color-danger]/10 text-sm px-3 py-2">

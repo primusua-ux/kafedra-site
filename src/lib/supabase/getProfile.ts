@@ -10,6 +10,7 @@ export type Profile = {
   full_name: string | null;
   role: UserRole;
   status: UserStatus;
+  platoon: string | null;
   created_at: string;
 };
 
