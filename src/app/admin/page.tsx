@@ -16,6 +16,7 @@ export default async function AdminPage() {
 
   const pending = (users ?? []).filter((u) => u.status === "pending");
   const approved = (users ?? []).filter((u) => u.status === "approved");
+  const rejected = (users ?? []).filter((u) => u.status === "rejected");
 
   return (
     <>
@@ -29,14 +30,17 @@ export default async function AdminPage() {
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 space-y-10">
         <UsersTable title={`На модерації (${pending.length})`} users={pending} highlight />
         <UsersTable title={`Активні користувачі (${approved.length})`} users={approved} />
+        {rejected.length > 0 && (
+          <UsersTable title={`Відхилені (${rejected.length})`} users={rejected} danger />
+        )}
       </section>
     </>
   );
 }
 
-function UsersTable({ title, users, highlight }: { title: string; users: Profile[]; highlight?: boolean }) {
+function UsersTable({ title, users, highlight, danger }: { title: string; users: Profile[]; highlight?: boolean; danger?: boolean }) {
   return (
-    <div className={`border bg-[--color-bg-panel] ${highlight ? "border-[--color-accent-dim]" : "border-[--color-border]"}`}>
+    <div className={`border bg-[--color-bg-panel] ${highlight ? "border-[--color-accent-dim]" : danger ? "border-[--color-danger]/40" : "border-[--color-border]"}`}>
       <div className="px-6 py-4 border-b border-[--color-border] section-title text-xs text-[--color-accent]">
         {title}
       </div>
