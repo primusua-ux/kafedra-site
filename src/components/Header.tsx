@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X, Shield, LogIn, LogOut, UserCog } from "lucide-react";
+import { Menu, X, LogIn, LogOut, UserCog } from "lucide-react";
+import Image from "next/image";
 import { signOut } from "@/app/(auth)/actions";
 
 type NavItem = { href: string; label: string; protected?: "student" | "teacher" };
@@ -34,9 +35,14 @@ export default function Header({ user }: { user: HeaderUser }) {
         <div className="flex h-16 items-center justify-between gap-4">
           {/* Brand */}
           <Link href="/" className="group flex items-center gap-3 shrink-0">
-            <div className="relative flex h-10 w-10 items-center justify-center border border-[--color-accent] bg-[--color-bg-panel] corner-cut">
-              <Shield className="h-5 w-5 text-[--color-accent]" />
-            </div>
+            <Image
+              src="/logo.svg"
+              alt="Логотип кафедри"
+              width={44}
+              height={44}
+              className="h-11 w-11 object-contain"
+              priority
+            />
             <div className="leading-tight">
               <div className="text-[10px] sm:text-[11px] tracking-[0.25em] text-[--color-accent] uppercase">
                 Кафедра ВП

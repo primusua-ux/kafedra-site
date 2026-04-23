@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Shield, MapPin, Mail, Phone } from "lucide-react";
+import Image from "next/image";
+import { MapPin, Mail, Phone } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -9,9 +10,13 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-4">
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <div className="relative flex h-10 w-10 items-center justify-center border border-[--color-accent] bg-[--color-bg] corner-cut">
-                <Shield className="h-5 w-5 text-[--color-accent]" />
-              </div>
+              <Image
+                src="/logo.svg"
+                alt="Логотип кафедри"
+                width={44}
+                height={44}
+                className="h-11 w-11 object-contain"
+              />
               <div>
                 <div className="text-[11px] tracking-[0.25em] text-[--color-accent] uppercase">
                   Кафедра ВП
