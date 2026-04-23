@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { createServiceClient } from "@/lib/supabase/service";
 import { getProfile } from "@/lib/supabase/getProfile";
 
@@ -26,12 +27,12 @@ export async function adminUpdateUser(
 ): Promise<EditState> {
   await assertAdmin();
 
-  const id       = String(formData.get("id")        ?? "");
-  const fullName = String(formData.get("full_name")  ?? "").trim();
-  const platoon  = String(formData.get("platoon")    ?? "").trim();
-  const role     = String(formData.get("role")       ?? "");
-  const status   = String(formData.get("status")     ?? "");
-  const newPass  = String(formData.get("new_password") ?? "").trim();
+  const id       = String(formData.get("id")           ?? "");
+  const fullName = String(formData.get("full_name")     ?? "").trim();
+  const platoon  = String(formData.get("platoon")       ?? "").trim();
+  const role     = String(formData.get("role")          ?? "");
+  const status   = String(formData.get("status")        ?? "");
+  const newPass  = String(formData.get("new_password")  ?? "").trim();
 
   if (!id || !fullName) return { ok: false, error: "П.І.Б. є обов'язковим." };
   if (!["student", "teacher", "admin"].includes(role))
@@ -41,14 +42,14 @@ export async function adminUpdateUser(
 
   const service = createServiceClient();
 
-  // Оновлюємо профіль
+  // Оновлюємо профіль через service role (обходить RLS і тригер дозволяє)
   const { error: profileErr } = await service
     .from("profiles")
     .update({
       full_name: fullName,
-      platoon: platoon || null,
-      role,
-      status,
+      platoon:   platoon || null,
+      role:      role as "student" | "teacher" | "admin",
+      status:    status as "pending" | "approved" | "rejected",
     })
     .eq("id", id);
 
@@ -65,6 +66,5 @@ export async function adminUpdateUser(
   }
 
   revalidatePath("/admin");
-  revalidatePath(`/admin/edit/${id}`);
-  return { ok: true, message: "Дані збережено." };
+  redirect("/admin");
 }

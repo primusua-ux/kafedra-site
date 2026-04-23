@@ -9,6 +9,7 @@ import type { Profile } from "@/lib/supabase/getProfile";
 
 type Params = Promise<{ id: string }>;
 
+export const dynamic = "force-dynamic";
 export const metadata = { title: "Редагування користувача" };
 
 export default async function EditUserPage({ params }: { params: Params }) {
