@@ -2,6 +2,7 @@ import { createServiceClient } from "@/lib/supabase/service";
 import PageHero from "@/components/PageHero";
 import { UserCog, Check, X } from "lucide-react";
 import { approveUser, rejectUser, changeRole } from "./actions";
+import DeleteButton from "./DeleteButton";
 import type { Profile } from "@/lib/supabase/getProfile";
 
 export const metadata = { title: "Адміністрування" };
@@ -71,7 +72,7 @@ function UsersTable({ title, users, highlight, danger }: { title: string; users:
                   {u.status}
                 </span>
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <form action={changeRole}>
                   <input type="hidden" name="id" value={u.id} />
                   <select
@@ -103,6 +104,7 @@ function UsersTable({ title, users, highlight, danger }: { title: string; users:
                     </button>
                   </form>
                 )}
+                <DeleteButton id={u.id} name={u.full_name || u.email} />
               </div>
             </div>
           ))}

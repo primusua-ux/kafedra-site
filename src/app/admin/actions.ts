@@ -36,3 +36,13 @@ export async function changeRole(formData: FormData) {
   await supabase.from("profiles").update({ role }).eq("id", id);
   revalidatePath("/admin");
 }
+
+export async function deleteUser(formData: FormData) {
+  await assertAdmin();
+  const id = String(formData.get("id"));
+  const supabase = createServiceClient();
+  // Видаляємо з auth.users — profiles видалиться каскадно (on delete cascade)
+  const { error } = await supabase.auth.admin.deleteUser(id);
+  if (error) throw new Error(error.message);
+  revalidatePath("/admin");
+}

@@ -56,6 +56,9 @@ export async function register(
   if (!["student", "teacher"].includes(requestedRole)) {
     return { ok: false, error: "Невірна роль." };
   }
+  if (requestedRole === "student" && !platoon) {
+    return { ok: false, error: "Вкажіть навчальний взвод." };
+  }
 
   const supabase = await createClient();
   const { error } = await supabase.auth.signUp({

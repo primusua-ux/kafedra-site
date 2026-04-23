@@ -32,7 +32,28 @@ export default function RegisterForm() {
 
   return (
     <form action={action} className="space-y-4">
-      <Field label="П.І.Б." name="full_name" required autoFocus />
+      <div className="border border-[--color-border] bg-[--color-bg-panel] px-4 py-3 text-xs text-[--color-text-muted] leading-relaxed">
+        Вкажіть достовірні дані — адміністратор перевіряє їх перед підтвердженням.
+        Після реєстрації ви зможете змінити П.І.Б., взвод та пароль у особистому кабінеті
+        (крім електронної пошти).
+      </div>
+
+      <label className="block">
+        <div className="text-[11px] uppercase tracking-widest text-[--color-text-muted] mb-1.5">
+          П.І.Б. <span className="text-[--color-danger]">*</span>
+        </div>
+        <input
+          name="full_name"
+          type="text"
+          required
+          autoFocus
+          placeholder="Прізвище Ім'я По батькові"
+          className="w-full bg-[--color-bg] border border-[--color-border-strong] px-3 py-2.5 text-[--color-text] outline-none focus:border-[--color-accent] placeholder:text-[--color-text-dim]"
+        />
+        <p className="text-xs text-[--color-text-dim] mt-1.5">
+          Вказуйте справжнє П.І.Б. — без цього адміністратор не зможе підтвердити заявку.
+        </p>
+      </label>
       <Field label="E-mail" name="email" type="email" required />
 
       {/* Пароль */}
@@ -87,22 +108,20 @@ export default function RegisterForm() {
         </p>
       </label>
 
-      {/* Взвод — тільки для студентів */}
+      {/* Взвод — тільки для студентів, обов'язкове */}
       {role === "student" && (
         <label className="block">
           <div className="text-[11px] uppercase tracking-widest text-[--color-text-muted] mb-1.5">
-            Навчальний взвод
+            Навчальний взвод <span className="text-[--color-danger]">*</span>
           </div>
           <input
             name="platoon"
             type="text"
+            required
             placeholder="Наприклад: 201, В-3, 1/2…"
             maxLength={20}
             className="w-full bg-[--color-bg] border border-[--color-border-strong] px-3 py-2.5 text-[--color-text] outline-none focus:border-[--color-accent] placeholder:text-[--color-text-dim]"
           />
-          <p className="text-xs text-[--color-text-dim] mt-1.5">
-            Необов'язково. Можна вказати пізніше.
-          </p>
         </label>
       )}
 
