@@ -1,18 +1,19 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-/**
- * Оновлює Supabase-сесію на кожен запит. Якщо користувач не авторизований,
- * а маршрут захищений — редирект на /login. Повертає NextResponse,
- * який proxy.ts передає далі.
- */
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  // Якщо env-змінні не задані — пропускаємо без авторизації
+  if (!url || !key || url.includes("placeholder")) {
+    return supabaseResponse;
+  }
+
+  try {
+    const supabase = createServerClient(url, key, {
       cookies: {
         getAll() {
           return request.cookies.getAll();
@@ -27,25 +28,28 @@ export async function updateSession(request: NextRequest) {
           );
         },
       },
-    },
-  );
+    });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-  const { pathname } = request.nextUrl;
+    const { pathname } = request.nextUrl;
 
-  const isProtected =
-    pathname.startsWith("/students") ||
-    pathname.startsWith("/teachers") ||
-    pathname.startsWith("/admin");
+    const isProtected =
+      pathname.startsWith("/students") ||
+      pathname.startsWith("/teachers") ||
+      pathname.startsWith("/admin");
 
-  if (isProtected && !user) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/login";
-    url.searchParams.set("redirect", pathname);
-    return NextResponse.redirect(url);
+    if (isProtected && !user) {
+      const redirectUrl = request.nextUrl.clone();
+      redirectUrl.pathname = "/login";
+      redirectUrl.searchParams.set("redirect", pathname);
+      return NextResponse.redirect(redirectUrl);
+    }
+  } catch (err) {
+    // Supabase недоступний — дозволяємо запит, але без авторизації
+    console.error("[proxy] Supabase error:", err);
   }
 
   return supabaseResponse;
