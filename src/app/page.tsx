@@ -22,11 +22,14 @@ export default function HomePage() {
               <span className="h-1.5 w-1.5 bg-[--color-accent] rounded-full" />
               Програма підготовки офіцерів запасу
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight">
-              Кафедра{" "}
-              <span className="text-[--color-accent]">військової підготовки</span>
-              <br />
-              Житомирського військового інституту
+            <h1 className="leading-[1.1] tracking-tight">
+              <span className="block text-4xl sm:text-5xl lg:text-6xl font-extrabold">
+                Кафедра{" "}
+                <span className="text-[--color-accent]">військової підготовки</span>
+              </span>
+              <span className="block text-2xl sm:text-3xl lg:text-4xl font-semibold text-[--color-text-muted] mt-2">
+                Житомирського військового інституту імені С.&nbsp;П.&nbsp;Корольова
+              </span>
             </h1>
             <p className="mt-6 text-lg text-[--color-text-muted] max-w-2xl">
               Готуємо офіцерів запасу Збройних Сил України — з міцною
@@ -38,7 +41,7 @@ export default function HomePage() {
                 href="/applicants"
                 className="inline-flex items-center gap-2 bg-[--color-accent] px-6 py-3 text-sm uppercase tracking-widest font-semibold text-[--color-bg] hover:bg-[--color-accent-hover] transition-colors"
               >
-                Стати курсантом
+                Стати студентом
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
