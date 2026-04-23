@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createServiceClient } from "@/lib/supabase/service";
 import PageHero from "@/components/PageHero";
 import { UserCog, Check, X } from "lucide-react";
 import { approveUser, rejectUser, changeRole } from "./actions";
@@ -7,7 +7,7 @@ import type { Profile } from "@/lib/supabase/getProfile";
 export const metadata = { title: "Адміністрування" };
 
 export default async function AdminPage() {
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const { data: users } = await supabase
     .from("profiles")
     .select("*")
