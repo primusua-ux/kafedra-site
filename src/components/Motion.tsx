@@ -27,7 +27,7 @@ export default function Motion({
   children,
   variant = "fade-up",
   delay = 0,
-  duration = 600,
+  duration = 1200,
   threshold = 0.12,
   className,
   style,
@@ -70,7 +70,7 @@ export function StaggerContainer({
   children,
   stagger = 100,
   variant = "fade-up",
-  duration = 600,
+  duration = 1200,
   className,
 }: {
   children: ReactNode[];

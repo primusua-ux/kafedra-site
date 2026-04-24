@@ -9,6 +9,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import Motion from "@/components/Motion";
+import CountUp from "@/components/CountUp";
 
 export default function HomePage() {
   return (
@@ -66,14 +67,14 @@ export default function HomePage() {
           {/* Stats */}
           <div className="animate-fade-up delay-500 mt-20 grid grid-cols-2 md:grid-cols-4 gap-px bg-[--color-border]">
             {[
-              { value: "30+",   label: "Років досвіду" },
-              { value: "1200+", label: "Випускників" },
-              { value: "24",    label: "Навчальні дисципліни" },
-              { value: "100%",  label: "Практична підготовка" },
+              { end: 30,   suffix: "+", label: "Років досвіду" },
+              { end: 1200, suffix: "+", label: "Випускників" },
+              { end: 24,   suffix: "",  label: "Навчальні дисципліни" },
+              { end: 100,  suffix: "%", label: "Практична підготовка" },
             ].map((s) => (
               <div key={s.label} className="bg-[--color-bg-panel] px-6 py-8 group hover:bg-[--color-bg-elevated]">
                 <div className="text-3xl sm:text-4xl font-extrabold text-[--color-accent] group-hover:scale-105" style={{ display: "inline-block" }}>
-                  {s.value}
+                  <CountUp end={s.end} suffix={s.suffix} duration={3600} />
                 </div>
                 <div className="mt-2 text-xs uppercase tracking-widest text-[--color-text-muted]">
                   {s.label}
@@ -131,8 +132,8 @@ export default function HomePage() {
                 href={card.href}
                 className="group relative flex flex-col h-full border border-[--color-border] bg-[--color-bg-panel] p-6 hover:border-[--color-accent] hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(201,162,74,0.08)]"
               >
-                <div className="absolute top-0 right-0 h-[2px] w-10 bg-[--color-accent] group-hover:w-full" style={{ transition: "width 0.4s cubic-bezier(0.22,1,0.36,1)" }} />
-                <card.icon className="h-7 w-7 text-[--color-accent] mb-4 group-hover:scale-110" style={{ transition: "transform 0.3s ease" }} />
+                <div className="absolute top-0 right-0 h-[2px] w-10 bg-[--color-accent] group-hover:w-full" style={{ transition: "width 0.8s cubic-bezier(0.22,1,0.36,1)" }} />
+                <card.icon className="h-7 w-7 text-[--color-accent] mb-4 group-hover:scale-110" style={{ transition: "transform 0.6s ease" }} />
                 <div className="flex items-center gap-2 mb-2">
                   <h3 className="text-lg font-bold">{card.title}</h3>
                   {card.locked && (

@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useState, useRef, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { register, type AuthState } from "../actions";
 
@@ -15,9 +15,19 @@ export default function RegisterForm() {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [role, setRole] = useState("student");
+  const formRef = useRef<HTMLFormElement>(null);
 
   const mismatch = confirm.length > 0 && password !== confirm;
   const canSubmit = !pending && !mismatch;
+
+  /* Shake form on server error */
+  useEffect(() => {
+    if (state && !state.ok && formRef.current) {
+      formRef.current.classList.remove("animate-shake");
+      void formRef.current.offsetWidth; // reflow
+      formRef.current.classList.add("animate-shake");
+    }
+  }, [state]);
 
   if (state?.ok) {
     return (
@@ -31,7 +41,7 @@ export default function RegisterForm() {
   }
 
   return (
-    <form action={action} className="space-y-4">
+    <form ref={formRef} action={action} className="space-y-4">
       <div className="border border-[--color-border] bg-[--color-bg-panel] px-4 py-3 text-xs text-[--color-text-muted] leading-relaxed">
         Вкажіть достовірні дані — адміністратор перевіряє їх перед підтвердженням.
         Після реєстрації ви зможете змінити П.І.Б., взвод та пароль у особистому кабінеті
@@ -134,8 +144,11 @@ export default function RegisterForm() {
       <button
         type="submit"
         disabled={!canSubmit}
-        className="w-full bg-[--color-accent] text-[--color-bg] py-3 text-sm uppercase tracking-widest font-semibold hover:bg-[--color-accent-hover] disabled:opacity-60 disabled:cursor-not-allowed"
+        className="w-full bg-[--color-accent] text-[--color-bg] py-3 text-sm uppercase tracking-widest font-semibold hover:bg-[--color-accent-hover] disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
       >
+        {pending && (
+          <span className="h-4 w-4 rounded-full border-2 border-[--color-bg]/40 border-t-[--color-bg] animate-spin" />
+        )}
         {pending ? "Надсилання…" : "Зареєструватись"}
       </button>
     </form>

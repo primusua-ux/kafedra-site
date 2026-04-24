@@ -3,6 +3,7 @@ import { Rubik } from "next/font/google";
 import "./globals.css";
 import HeaderServer from "@/components/HeaderServer";
 import Footer from "@/components/Footer";
+import ReadingProgress from "@/components/ReadingProgress";
 
 const display = Rubik({
   variable: "--font-display",
@@ -36,6 +37,7 @@ export default function RootLayout({
   return (
     <html lang="uk" className={`${display.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
+        <ReadingProgress />
         <HeaderServer />
         <main className="flex-1">{children}</main>
         <Footer />
