@@ -1,4 +1,4 @@
-import { Upload, Calendar, Clock, FolderOpen, Users, BookOpenCheck } from "lucide-react";
+import { Upload, Calendar, Clock, FolderOpen, Users, BookOpenCheck, ChevronRight } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import Link from "next/link";
 
@@ -29,13 +29,15 @@ export default function TeachersPage() {
             <Link
               key={s.title}
               href={s.href}
-              className="group border border-[--color-border] bg-[--color-bg-panel] p-6 hover:border-[--color-accent] transition-colors"
+              className="group relative flex flex-col border border-[--color-border] bg-[--color-bg-panel] p-6 hover:border-[--color-accent] hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(201,162,74,0.08)]"
             >
-              <s.icon className="h-7 w-7 text-[--color-accent] mb-4" />
+              <div className="absolute top-0 right-0 h-[2px] w-10 bg-[--color-accent] group-hover:w-full" style={{ transition: "width 0.8s cubic-bezier(0.22,1,0.36,1)" }} />
+              <s.icon className="h-7 w-7 text-[--color-accent] mb-4 group-hover:scale-110" style={{ transition: "transform 0.6s ease" }} />
               <h3 className="text-lg font-bold mb-2">{s.title}</h3>
-              <p className="text-sm text-[--color-text-muted]">{s.desc}</p>
-              <div className="mt-4 text-xs uppercase tracking-widest text-[--color-accent] group-hover:underline">
-                Відкрити →
+              <p className="text-sm text-[--color-text-muted] flex-1">{s.desc}</p>
+              <div className="mt-5 inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[--color-accent] group-hover:gap-3">
+                Відкрити
+                <ChevronRight className="h-3 w-3" />
               </div>
             </Link>
           ))}

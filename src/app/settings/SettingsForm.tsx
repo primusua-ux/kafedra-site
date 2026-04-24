@@ -77,8 +77,11 @@ function ProfileSection({ profile }: { profile: Profile }) {
         <button
           type="submit"
           disabled={pending}
-          className="px-6 py-2.5 bg-[--color-accent] text-[--color-bg] text-sm uppercase tracking-widest font-semibold hover:bg-[--color-accent-hover] disabled:opacity-60"
+          className="inline-flex items-center gap-2 px-6 py-2.5 bg-[--color-accent] text-[--color-bg] text-sm uppercase tracking-widest font-semibold hover:bg-[--color-accent-hover] disabled:opacity-60"
         >
+          {pending && (
+            <span className="h-4 w-4 rounded-full border-2 border-[--color-bg]/40 border-t-[--color-bg] animate-spin" />
+          )}
           {pending ? "Збереження…" : "Зберегти"}
         </button>
       </form>
@@ -144,8 +147,11 @@ function PasswordSection({ email: _ }: { email: string }) {
         <button
           type="submit"
           disabled={pending}
-          className="px-6 py-2.5 bg-[--color-bg-elevated] border border-[--color-border-strong] text-sm uppercase tracking-widest hover:border-[--color-accent] disabled:opacity-60"
+          className="inline-flex items-center gap-2 px-6 py-2.5 bg-[--color-bg-elevated] border border-[--color-border-strong] text-sm uppercase tracking-widest hover:border-[--color-accent] hover:text-[--color-accent] disabled:opacity-60"
         >
+          {pending && (
+            <span className="h-4 w-4 rounded-full border-2 border-[--color-text-muted]/40 border-t-[--color-accent] animate-spin" />
+          )}
           {pending ? "Збереження…" : "Змінити пароль"}
         </button>
       </form>

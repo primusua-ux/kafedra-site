@@ -174,7 +174,7 @@ export default function Header({ user }: { user: HeaderUser }) {
                   <Link
                     href="/admin"
                     onClick={() => setOpen(false)}
-                    className="block text-center border border-[--color-border-strong] px-4 py-2 text-sm uppercase tracking-wider"
+                    className="block text-center border border-[--color-border-strong] px-4 py-2 text-sm uppercase tracking-wider hover:border-[--color-accent] hover:text-[--color-accent]"
                   >
                     Адмін-панель
                   </Link>
@@ -182,7 +182,7 @@ export default function Header({ user }: { user: HeaderUser }) {
                 <form action={signOut}>
                   <button
                     type="submit"
-                    className="w-full border border-[--color-border-strong] px-4 py-2 text-sm uppercase tracking-wider hover:text-[--color-danger]"
+                    className="w-full border border-[--color-border-strong] px-4 py-2 text-sm uppercase tracking-wider hover:border-[--color-danger] hover:text-[--color-danger]"
                   >
                     Вийти
                   </button>
@@ -193,14 +193,14 @@ export default function Header({ user }: { user: HeaderUser }) {
                 <Link
                   href="/login"
                   onClick={() => setOpen(false)}
-                  className="flex-1 text-center border border-[--color-border-strong] px-4 py-2 text-sm uppercase tracking-wider"
+                  className="flex-1 text-center border border-[--color-border-strong] px-4 py-2 text-sm uppercase tracking-wider hover:border-[--color-accent] hover:text-[--color-accent]"
                 >
                   Вхід
                 </Link>
                 <Link
                   href="/register"
                   onClick={() => setOpen(false)}
-                  className="flex-1 text-center bg-[--color-accent] text-[--color-bg] px-4 py-2 text-sm uppercase tracking-wider font-semibold"
+                  className="flex-1 text-center bg-[--color-accent] text-[--color-bg] px-4 py-2 text-sm uppercase tracking-wider font-semibold hover:bg-[--color-accent-hover]"
                 >
                   Реєстрація
                 </Link>
