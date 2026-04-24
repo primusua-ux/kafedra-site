@@ -71,3 +71,67 @@ body {
 ::-webkit-scrollbar-track { background: #0a1220; }
 ::-webkit-scrollbar-thumb { background: #26344d; border-radius: 2px; }
 ::-webkit-scrollbar-thumb:hover { background: #3a4a68; }
+
+/* ── Keyframes ── */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes fade-left {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0);     }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+
+@keyframes accent-line {
+  from { width: 0; opacity: 0; }
+  to   { width: 100%; opacity: 1; }
+}
+
+/* ── Utility animation classes ── */
+.animate-fade-in  { animation: fade-in  0.6s ease both; }
+.animate-fade-up  { animation: fade-up  0.6s ease both; }
+.animate-fade-left{ animation: fade-left 0.6s ease both; }
+.animate-scale-in { animation: scale-in 0.5s ease both; }
+
+/* Затримки для stagger-ефекту */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+.delay-700 { animation-delay: 700ms; }
+.delay-800 { animation-delay: 800ms; }
+
+/* ── Плавні переходи для інтерактивних елементів ── */
+a, button, input, select, textarea {
+  transition-property: color, background-color, border-color, opacity, transform, box-shadow;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+}
+
+/* Акцентна лінія під посиланнями ── */
+.accent-underline {
+  position: relative;
+}
+.accent-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  height: 1px;
+  width: 0;
+  background: var(--color-accent);
+  transition: width 0.3s ease;
+}
+.accent-underline:hover::after { width: 100%; }

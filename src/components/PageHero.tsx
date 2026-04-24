@@ -18,19 +18,19 @@ export default function PageHero({
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
         <div className="flex items-start gap-4">
           {icon && (
-            <div className="hidden sm:flex h-14 w-14 items-center justify-center border border-[--color-accent] bg-[--color-bg-panel] corner-cut shrink-0">
+            <div className="animate-scale-in hidden sm:flex h-14 w-14 items-center justify-center border border-[--color-accent] bg-[--color-bg-panel] corner-cut shrink-0">
               <div className="text-[--color-accent]">{icon}</div>
             </div>
           )}
           <div>
-            <div className="section-title text-xs text-[--color-accent] mb-3">
+            <div className="animate-fade-in section-title text-xs text-[--color-accent] mb-3">
               {eyebrow}
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
+            <h1 className="animate-fade-up delay-100 text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
               {title}
             </h1>
             {description && (
-              <p className="mt-4 text-[--color-text-muted] max-w-3xl text-lg">
+              <p className="animate-fade-up delay-200 mt-4 text-[--color-text-muted] max-w-3xl text-lg">
                 {description}
               </p>
             )}
