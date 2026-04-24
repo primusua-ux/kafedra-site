@@ -7,12 +7,11 @@ type Variant = "fade-up" | "fade-in" | "fade-left" | "scale-in";
 interface MotionProps {
   children: ReactNode;
   variant?: Variant;
-  delay?: number;       // ms
-  duration?: number;    // ms
-  threshold?: number;   // 0–1, частка елементу що має бути видима
+  delay?: number;
+  duration?: number;
+  threshold?: number;
   className?: string;
   style?: CSSProperties;
-  as?: keyof JSX.IntrinsicElements;
 }
 
 const INITIAL: Record<Variant, CSSProperties> = {
@@ -32,21 +31,18 @@ export default function Motion({
   threshold = 0.12,
   className,
   style,
-  as: Tag = "div",
 }: MotionProps) {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    // Встановлюємо початковий стан
     Object.assign(el.style, INITIAL[variant]);
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
-        // Невелика пауза щоб delay відчувався природно
         const timer = setTimeout(() => {
           el.style.transition = `opacity ${duration}ms ${EASING} ${delay}ms, transform ${duration}ms ${EASING} ${delay}ms`;
           el.style.opacity = "1";
@@ -63,10 +59,9 @@ export default function Motion({
   }, [variant, delay, duration, threshold]);
 
   return (
-    // @ts-expect-error dynamic tag
-    <Tag ref={ref} className={className} style={style}>
+    <div ref={ref} className={className} style={style}>
       {children}
-    </Tag>
+    </div>
   );
 }
 
